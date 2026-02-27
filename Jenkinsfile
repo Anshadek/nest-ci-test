@@ -3,15 +3,8 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
-            steps {
-                git 'https://github.com/Anshadek/nest-ci-test.git'
-            }
-        }
-
         stage('Install') {
             steps {
-                
                 sh 'npm install'
             }
         }
