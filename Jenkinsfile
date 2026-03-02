@@ -8,27 +8,15 @@ pipeline {
 
   stages {
 
-    stage('Checkout') {
+    stage('Build & Test Inside Node Container') {
       steps {
-        git branch: 'main', url: 'https://github.com/Anshadek/nest-ci-test.git'
-      }
-    }
-
-    stage('Install') {
-      steps {
-        sh 'npm install'
-      }
-    }
-
-    stage('Test') {
-      steps {
-        sh 'npm run test'
-      }
-    }
-
-    stage('Build App') {
-      steps {
-        sh 'npm run build'
+        script {
+          docker.image('node:20').inside {
+            sh 'npm install'
+            sh 'npm run test'
+            sh 'npm run build'
+          }
+        }
       }
     }
 
